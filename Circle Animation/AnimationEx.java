@@ -8,7 +8,7 @@ public class AnimationEx extends JFrame {
 
     private void setup() {
         setTitle("Ball animation");
-        setSize(800,800);
+        setSize(1920,1080);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
