@@ -1,46 +1,54 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.Arrays;
+import java.util.Random;
 
 public class Animation extends JPanel {
 
-    int x1, y1, x2, y2 = 0; // starting position (top left corner)
+    int x1, y1; // starting position (top left corner)
+    int numCircles = 20;
 
     public void cycle() {
-        // movement for black circle
+        // movement for all circles
         x1 += 1; // move 1 pixel each loop (every 10 ms)
         y1 += 1;
-
-        // movement for red circle
-        x2 += 1.5;
-        y2 += 2.5;
     }
+
+    public int[][] colorArray() {
+
+        int[][] colorArray = new int[numCircles][3];
+
+        for (int arraynum = 0; arraynum < numCircles; arraynum++) {
+            for (int colornum = 0; colornum < 3; colornum++) {
+                colorArray[arraynum][colornum] = (int)(Math.random()*256);
+            }
+        }
+        return colorArray;
+    }
+
+    int[][] colors = colorArray();
 
     @Override
     public void paint(Graphics g) {
+        // circle constants
+        int circleW = 40;
+        int circleH = 40;
+
+        int Xcenter = getWidth()/2;
+        int Ycenter = getHeight()/2;
+
         super.paint(g); // invoked by swing to draw components - needed for repaint to work
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // turn on antialiasing
 
-        // draw for black circle
-        g2d.fillOval(x1, y1, 30, 30); // draw filled oval at top left corner with diameter 30
-        
-        // draw for red circle
-        g2d.setColor(Color.RED);
-        g2d.fillOval(x2, y2, 30, 30);
+        for (int x = 0; x < numCircles; x++) {
+            // x position shifts circle width units to the right each iteration, y position stays the same    
 
-        // for (int x = 1; x+1 < 20; x++) {
-        //     // x position shifts circle width units to the right each iteration, y position stays the same       
-        //     double dred = Math.random() * 256;
-        //     double dgreen = Math.random() * 256;
-        //     double dblue = Math.random() * 256;
-
-        //     int red = (int)dred;
-        //     int green = (int)dgreen;
-        //     int blue = (int)dblue;
-            
-        //     g2d.setColor(new Color(red, green, blue));
-        //     g2d.fillOval((30 * x) + x1, (30 * 2) + y1, 30, 30);
-        // }
+            g2d.setColor(new Color(colors[x][0], colors[x][1], colors[x][2]));
+            g2d.fillOval(((Xcenter - circleW*x) + Xcenter/4) + x1, Ycenter + y1, circleH, circleH);
+            g2d.fillOval(((Xcenter - circleW*x) + Xcenter/4) + x1, (Ycenter + circleH) + y1, circleW, circleH);
+            g2d.fillOval(((Xcenter - circleW*x) + Xcenter/4) + x1, (Ycenter - circleH) + y1, circleW, circleH);
+        }
     }
 
     public void run() throws InterruptedException {
