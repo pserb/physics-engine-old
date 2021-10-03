@@ -1,6 +1,7 @@
 {
     "java.project.sourcePaths": [
+        "Game Loop",
         "First Tests",
-        "Game Loop"
+        "Circle Animation"
     ]
 }
