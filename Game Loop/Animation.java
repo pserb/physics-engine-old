@@ -28,7 +28,7 @@ public class Animation extends JPanel {
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        while (true) {
+        for (;;) {
             animation.move(); // update x y pos of ball
             animation.repaint(); // paint new pos and delete paint of old pos
             Thread.sleep(10); // loop every 10ms
