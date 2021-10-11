@@ -8,11 +8,11 @@ public class Animation extends JPanel {
     int x1, y1; // starting position (top left corner)
     int numCircles = 20;
 
-    public void cycle() {
-        // movement for all circles
-        x1 += 1; // move 1 pixel each loop (every 10 ms)
-        y1 += 1;
-    }
+    // public void cycle() {
+    //     // movement for all circles
+    //     x1 += 1; // move 1 pixel each loop (every 10 ms)
+    //     y1 += 1;
+    // }
 
     public int[][] colorArray() {
 
@@ -42,18 +42,19 @@ public class Animation extends JPanel {
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); // turn on antialiasing
 
         for (int x = 0; x < numCircles; x++) {
-            // x position shifts circle width units to the right each iteration, y position stays the same    
+            int x1 = (int)(Math.random()*15);
+            int y1 = (int)(Math.random()*15);    
 
             g2d.setColor(new Color(colors[x][0], colors[x][1], colors[x][2]));
-            g2d.fillOval(((Xcenter - circleW*x) + Xcenter/4) + x1, Ycenter + y1, circleH, circleH);
-            g2d.fillOval(((Xcenter - circleW*x) + Xcenter/4) + x1, (Ycenter + circleH) + y1, circleW, circleH);
-            g2d.fillOval(((Xcenter - circleW*x) + Xcenter/4) + x1, (Ycenter - circleH) + y1, circleW, circleH);
+            g2d.fillOval(((Xcenter - circleW*x) + circleW*9) + x1, Ycenter + y1, circleH, circleH);
+            // g2d.fillOval(((Xcenter - circleW*x) + Xcenter/4) + x1, (Ycenter + circleH) + y1, circleW, circleH);
+            // g2d.fillOval(((Xcenter - circleW*x) + Xcenter/4) + x1, (Ycenter - circleH) + y1, circleW, circleH);
         }
     }
 
     public void run() throws InterruptedException {
         for (;;) {
-            cycle();
+            // cycle();
             repaint();
             Thread.sleep(10);
         }
