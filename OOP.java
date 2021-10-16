@@ -1,5 +1,3 @@
-import java.util.*;
-
 public class OOP {
 
     private int x;
