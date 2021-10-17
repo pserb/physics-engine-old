@@ -36,16 +36,19 @@ public class Ball {
     double gravity = -9.81;
 
     public void move() {
-        x += translatex;
-        double displacement = -(translatey * 0.5 * gravity * this.t * this.t) / 1000;
+        if (y + height < 920) {
+            x += translatex;
+            double displacement = -(translatey * 0.5 * gravity * this.t * this.t) / 1000;
 
-        y += (int)displacement;
+            y += (int)displacement;
 
-        if (y + height >= 920) {
-            y = 920 - height;
+            if (y + height >= 920) {
+                y = 920 - height;
+            }
+
+            System.out.println(this.t);
+            this.t++;
         }
-
-        this.t++;
     }
 
     public void draw(Graphics2D g2d) {
