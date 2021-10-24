@@ -13,13 +13,16 @@ public class Ball {
     private int g;
     private int b;
 
-    private int translatex;
-    private int translatey;
+    public int t;
 
-    private int t;
-    // public static double gravity;
+    private static double gravity = 9.81;
+    private float yvel;
+    private float xvel;
 
-    public Ball(int x, int y, int width, int height, int r, int g, int b, int translatex, int translatey) {
+    private double bounciness;
+    private int bounceCounter;
+
+    public Ball(int x, int y, int width, int height, int r, int g, int b, float yvel, float xvel, double bounciness) {
         this.x = x;
         this.y = y;
         this.width = width;
@@ -29,26 +32,38 @@ public class Ball {
         this.g = g;
         this.b = b;
 
-        this.translatex = translatex;
-        this.translatey = translatey;
+        this.yvel = yvel;
+        this.xvel = xvel;
+
+        this.bounciness = bounciness;
     }
 
-    double gravity = -9.81;
-
     public void move() {
-        if (y + height < 920) {
-            x += translatex;
-            double displacement = -(translatey * 0.5 * gravity * this.t * this.t) / 1000;
+        x += xvel;
 
-            y += (int)displacement;
+        yvel += gravity * this.t;
+        y += yvel / 2000;
 
-            if (y + height >= 920) {
-                y = 920 - height;
-            }
+        if (y + height + (yvel / 2000) >= 920) {
+            yvel = (int)(-yvel * bounciness);
+            xvel = (int)(xvel * 0.99);
 
-            System.out.println(this.t);
-            this.t++;
+            bounceCounter++;
         }
+
+        if (x + width >= 982) {
+            xvel = (int)(-xvel * 0.95);
+        }
+
+        if (x <= 2) {
+            xvel = (int)(-xvel * 0.95);
+        }
+
+        if (bounceCounter >= 18) {
+            y = 920 - height;
+            yvel = 0;
+        }
+        this.t++;
     }
 
     public void draw(Graphics2D g2d) {
