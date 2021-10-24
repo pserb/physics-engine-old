@@ -1,10 +1,11 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Animation extends JPanel {
 
-    int numBalls = 10;
+    int numBalls = 24;
 
     int time = 0;
 
@@ -15,7 +16,7 @@ public class Animation extends JPanel {
         for (int i = 0; i < numBalls; i++) {
 
             int dx = new Random().nextInt(900);
-            int dy = new Random().nextInt(400);
+            int dy = new Random().nextInt(200);
             int dwidth = 50;
             int dheight = 50;
 
@@ -23,10 +24,12 @@ public class Animation extends JPanel {
             int dg = new Random().nextInt(255);
             int db = new Random().nextInt(255);
 
-            int dtranslatex = 0;
-            int dtranslatey = 1;
+            float dyvel = (new Random().nextInt(10) - 5) * 4000;
+            float dxvel = new Random().nextInt(30) - 15;
 
-            balls.add(new Ball(dx, dy, dwidth, dheight, dr, dg, db, dtranslatex, dtranslatey));
+            double dbounciness = ThreadLocalRandom.current().nextDouble(0.8, 0.9);
+
+            balls.add(new Ball(dx, dy, dwidth, dheight, dr, dg, db, dyvel, dxvel, dbounciness));
 
         }
         return balls;
@@ -54,10 +57,6 @@ public class Animation extends JPanel {
         for (;;) {
             repaint();
             Thread.sleep(10);
-            time += 10;
-            if (time % 1000 == 0) {
-                System.out.println(time/1000);
-            }
         }
     }
 }
