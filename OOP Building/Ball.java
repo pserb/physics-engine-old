@@ -2,10 +2,10 @@ import java.awt.Graphics2D;
 import java.util.*;
 import java.awt.*;
 
-public class Ball {
+public class Ball implements PhysicsBody {
 
-    private int x;
-    private int y;
+    public int x;
+    public int y;
     private int width;
     private int height;
 
@@ -38,6 +38,17 @@ public class Ball {
         this.bounciness = bounciness;
     }
 
+    public int getY() {
+        return y; 
+    }
+
+    public void bounce() {
+        yvel = (int)(-yvel * bounciness);
+        xvel = (int)(xvel * 0.99);
+
+        bounceCounter++;
+    }
+
     public void move() {
         x += xvel;
 
@@ -45,10 +56,7 @@ public class Ball {
         y += yvel / 2000;
 
         if (y + height + (yvel / 2000) >= 920) {
-            yvel = (int)(-yvel * bounciness);
-            xvel = (int)(xvel * 0.99);
-
-            bounceCounter++;
+            bounce();
         }
 
         if (x + width >= 982) {
