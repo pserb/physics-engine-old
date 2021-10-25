@@ -5,13 +5,14 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Animation extends JPanel {
 
-    int numBalls = 24;
+    int numBalls = 20;
+    int numCubes = 20;
 
     int time = 0;
 
-    public ArrayList<Ball> construct() {
+    public ArrayList<PhysicsBody> constructBodies() {
 
-        ArrayList<Ball> balls = new ArrayList<Ball>();
+        ArrayList<PhysicsBody> bodies = new ArrayList<>();
 
         for (int i = 0; i < numBalls; i++) {
 
@@ -29,13 +30,32 @@ public class Animation extends JPanel {
 
             double dbounciness = ThreadLocalRandom.current().nextDouble(0.8, 0.9);
 
-            balls.add(new Ball(dx, dy, dwidth, dheight, dr, dg, db, dyvel, dxvel, dbounciness));
-
+            bodies.add(new Ball(dx, dy, dwidth, dheight, dr, dg, db, dyvel, dxvel, dbounciness));
         }
-        return balls;
+
+        for (int i = 0; i < numCubes; i++) {
+
+            int dx = new Random().nextInt(900);
+            int dy = new Random().nextInt(200);
+            int dwidth = 50;
+            int dheight = 50;
+
+            int dr = new Random().nextInt(255);
+            int dg = new Random().nextInt(255);
+            int db = new Random().nextInt(255);
+
+            float dyvel = (new Random().nextInt(10) - 5) * 4000;
+            float dxvel = new Random().nextInt(30) - 15;
+
+            bodies.add(new Cube(dx, dy, dwidth, dheight, dr, dg, db, dyvel, dxvel));
+        }
+
+        return bodies;
     }
 
-    ArrayList<Ball> ballList = construct();
+    ArrayList<PhysicsBody> bodiesList = constructBodies();
+
+    HashMap<PhysicsBody, Integer> collideMap = new HashMap<>();
 
     @Override
     public void paint(Graphics g) {
@@ -46,9 +66,10 @@ public class Animation extends JPanel {
 
         g2d.fillRect(0, 920, 1000, 50);
 
-        for (Ball ball : ballList) {
-            ball.draw(g2d);
-            ball.move();
+        for (PhysicsBody body : bodiesList) {
+            body.draw(g2d);
+            
+            body.move();
         }
 
     }
