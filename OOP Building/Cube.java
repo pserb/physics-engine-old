@@ -40,7 +40,7 @@ public class Cube implements PhysicsBody {
     }
 
     public void bounce() {
-        yvel = (int)(-yvel * 0.15);
+        yvel = (int)(-yvel * 0.2);
         xvel = (int)(xvel * 0.99);
 
         bounceCounter++;
