@@ -5,10 +5,12 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class Animation extends JPanel {
 
-    int numBalls = 20;
-    int numCubes = 20;
+    int numBalls = 10;
+    int numCubes = 10;
 
     int time = 0;
+
+    int matches = 0;
 
     public ArrayList<PhysicsBody> constructBodies() {
 
@@ -55,7 +57,7 @@ public class Animation extends JPanel {
 
     ArrayList<PhysicsBody> bodiesList = constructBodies();
 
-    HashMap<PhysicsBody, Integer> collideMap = new HashMap<>();
+    // HashMap<PhysicsBody, Integer> collideMap = new HashMap<>();
 
     @Override
     public void paint(Graphics g) {
@@ -68,8 +70,8 @@ public class Animation extends JPanel {
 
         for (PhysicsBody body : bodiesList) {
             body.draw(g2d);
-            
             body.move();
+            // body.checkCollision(bodiesList);
         }
 
     }
