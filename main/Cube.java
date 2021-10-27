@@ -35,15 +35,36 @@ public class Cube implements PhysicsBody {
         this.xvel = xvel;
     }
 
-    public int getY() {
-        return y; 
-    }
+    // public int getX() {
+    //     return x;
+    // }
+    // public int getY() {
+    //     return y; 
+    // }
+
+    // public void checkCollision(ArrayList<PhysicsBody> list) {
+    //     for (int initial = 0; initial < list.size(); initial++) {
+    //         for (int next = initial + 1; next < list.size(); next++) {
+    //             if (Math.abs(((list.get(initial).getX()) - (list.get(next).getX()))) < 50 && Math.abs(((list.get(initial).getY()) - (list.get(next).getY()))) < 50) {
+    //                 list.get(initial).collide();
+    //                 // list.get(next).collide();
+    //                 System.out.println("bounce");
+	// 			}
+    //         }
+    //     }
+    // }
+
+    // public void collide() {
+    //     yvel = (int)(-yvel * 0.9);
+    //     xvel = (int)(-xvel * 0.9);
+    // }
 
     public void bounce() {
         yvel = (int)(-yvel * 0.2);
         xvel = (int)(xvel * 0.99);
 
         bounceCounter++;
+        // System.out.println(bounceCounter);
     }
 
     public void move() {
