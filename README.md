@@ -1,4 +1,5 @@
-# physics-engine
+# physics-engine-old
+see https://github.com/pserb/physics-engine<br>
 Experimentation with building a simple 2D physics engine in java.
 
 ## TODO
